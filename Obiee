@@ -1,0 +1,148 @@
+1.Current Quarter Name: select distinct calendar_quarter_name from date_dm
+where trunc(sysdate) between calendar_quarter_start_date and calendar_quarter_end_date
+
+2.Current Year Name:select distinct calendar_year_name from date_dm 
+where trunc(sysdate) between calendar_year_start_date and calendar_year_end_date
+
+3.Current Month Name:select distinct calendar_month_name from date_dm where 
+calendar_month_id = (select distinct calendar_month_id from date_dm where trunc(sysdate) 
+between calendar_month_start_date and calendar_month_end_date)
+
+4.Current Quarter ID:select distinct calendar_quarter_ID * -1 from date_dm 
+where trunc(sysdate) between calendar_quarter_start_date and calendar_quarter_end_date
+
+5.4 Quarters Ago:select distinct calendar_quarter_name from date_dm where calendar_quarter_id = 
+(select distinct calendar_quarter_ID+4 from date_dm 
+
+6.4 Quarters Ago ID: select distinct calendar_quarter_ID * -1 -4 from date_dm 
+where trunc(sysdate) between calendar_quarter_start_date and calendar_quarter_end_date
+
+7.3 Quarters Ago:select distinct calendar_quarter_name from date_dm where calendar_quarter_id = 
+(select distinct calendar_quarter_ID+3 from date_dm 
+where trunc(sysdate) between calendar_quarter_start_date and calendar_quarter_end_date)
+
+8.2 Quarters Ago:select distinct calendar_quarter_name from date_dm where calendar_quarter_id = 
+(select distinct calendar_quarter_ID+2 from date_dm 
+where trunc(sysdate) between calendar_quarter_start_date and calendar_quarter_end_date)
+
+9.Previous Quarter: select distinct calendar_quarter_name from date_dm where calendar_quarter_id = 
+(select distinct calendar_quarter_ID+1 from date_dm 
+where trunc(sysdate) between calendar_quarter_start_date and calendar_quarter_end_date)
+
+10.Current Quarter1: select distinct calendar_quarter_name from date_dm 
+where trunc(sysdate) between calendar_quarter_start_date and calendar_quarter_end_date
+
+11.Current Month ID: select distinct calendar_month_id * -1 from date_dm 
+where trunc(sysdate) between calendar_month_start_date and calendar_month_end_date
+
+12.12 Months Ago: select distinct calendar_month_ID *-1 from date_dm
+where calendar_month_id = (select distinct calendar_month_id +12 from date_dm where trunc(sysdate) between calendar_month_start_date and calendar_month_end_date)
+
+13.Previous_Init: select dimension_key from date_dm where day_of_cal_week = 4 
+and 
+TRUNC(day) < trunc(sysdate) and TRUNC(day) > trunc(sysdate - 8)
+
+14. Prev_Date: select TRUNC(day) from date_dm where  day_of_cal_week = 4 
+and 
+TRUNC(day) < trunc(sysdate) and TRUNC(day) > trunc(sysdate - 8)
+
+15. Current_date_val: select TRUNC(day) from date_dm where  day_of_cal_week = 5 
+and 
+TRUNC(day) <= trunc(sysdate) and TRUNC(day) > trunc(sysdate - 7)
+
+16. Current_date_key: select dimension_key from date_dm where day_of_cal_week = 5 
+and 
+TRUNC(day) <= trunc(sysdate) and TRUNC(day) > trunc(sysdate - 7)
+
+17. Current Date: select trunc(sysdate) from dual
+
+18. GetSysdate: select distinct to_char(day,'MM/DD/YYYY')  from date_dm where trunc(day) = trunc(sysdate)
+
+19. GetSysdate-31: select distinct to_char(day,'MM/DD/YYYY') from date_dm where trunc(day) = trunc(sysdate - 31)
+
+20. GetSysdate-15: select distinct  to_char(day,'MM/DD/YYYY') from date_dm where trunc(day) = trunc(sysdate - 15)
+
+21. GetSysdate-365: select distinct to_char(day,'MM/DD/YYYY') from date_dm where trunc(day) = trunc(sysdate - 365)
+
+22. GetSysdate-5: select distinct to_char(day,'MM/DD/YYYY') from date_dm where trunc(day) = trunc(sysdate - 5)
+
+23. GetSysdate-7: select distinct to_char(day,'MM/DD/YYYY') from date_dm where trunc(day) = trunc(sysdate - 7)
+
+24. GetSysdate-4Qtr:select distinct to_char(calendar_quarter_start_date,'MM/DD/YYYY') from date_dm where trunc(day) = trunc(sysdate - 365)
+
+25.GetSysdate-2: select distinct to_char(day,'MM/DD/YYYY') from date_dm where trunc(day) = trunc(sysdate - 2)
+
+26.GetSysdate-9: select distinct to_char(day,'MM/DD/YYYY') from date_dm where trunc(day) = trunc(sysdate - 9)
+
+27. GetSysdate-3: select distinct  to_char(day,'MM/DD/YYYY') from date_dm where trunc(day) = trunc(sysdate - 3)
+
+28.GetSysdate-8: select distinct to_char(day,'MM/DD/YYYY') from date_dm where trunc(day) = trunc(sysdate - 8)
+
+29.GetStartDate-YTD: select distinct to_char(calendar_year_start_date,'MM/DD/YYYY') from date_dm 
+where trunc(sysdate) between calendar_year_start_date and calendar_year_end_date
+
+30. Current_Month_Start_Date: select distinct to_char(calendar_month_start_date,'MM/DD/YYYY') from date_dm where trunc(sysdate) 
+between calendar_month_start_date and calendar_month_end_date
+
+31. Current_Month_End_Date: select distinct to_char(calendar_month_end_date,'MM/DD/YYYY') from date_dm where trunc(sysdate) 
+between calendar_month_start_date and calendar_month_end_date
+
+32. SystemDate: select distinct trunc(day) from date_dm where trunc(day) = trunc(sysdate)
+
+33. SystemDate-1: select distinct trunc(day) from date_dm where trunc(day) = trunc(sysdate-1)
+34.SystemDate-30: select distinct trunc(day) from date_dm where trunc(day) = trunc(sysdate-30)
+
+35. SlaMonth: select distinct CALENDAR_MONTH_NAME from DATE_DM_SLA_END_MONTH_V where CALENDAR_MONTH_CAL_MONTH_CODE in (select max(CALENDAR_MONTH_CAL_MONTH_CODE)
+from DATE_DM_SLA_END_MONTH_V)
+
+36.SlaMonth-12: select distinct CALENDAR_MONTH_NAME from DATE_DM_SLA_END_MONTH_V where 
+CALENDAR_MONTH_CAL_MONTH_CODE in (select min(CALENDAR_MONTH_CAL_MONTH_CODE)
+from DATE_DM_SLA_END_MONTH_V)
+
+37.SlaMonth+1: select distinct CALENDAR_MONTH_NAME from DATE_DM where
+CALENDAR_MONTH_CAL_MONTH_CODE in (
+select CALENDAR_MONTH_CAL_MONTH_CODE +1   from 
+DATE_DM_SLA_END_MONTH_V where CALENDAR_MONTH_CAL_MONTH_CODE in (select max(CALENDAR_MONTH_CAL_MONTH_CODE)
+from DATE_DM_SLA_END_MONTH_V) and CALENDAR_MONTH_CAL_MONTH_CODE > '200809')
+
+38. SystemDate-LastMonth: select distinct trunc(calendar_month_end_date) from date_dm where calendar_month_id = 
+(select distinct calendar_month_ID+1 from date_dm 
+where trunc(sysdate) between trunc(calendar_month_start_date) and trunc(calendar_month_end_date))
+
+39. SystemDate-Year: select distinct trunc(calendar_month_start_date) from date_dm where calendar_month_id = 
+(select distinct calendar_month_ID+12 from date_dm 
+where trunc(sysdate) between trunc(calendar_month_start_date) and trunc(calendar_month_end_date))
+
+40.Prev_Month_Start_Date: select distinct  to_char(calendar_month_start_date,'MM/DD/YYYY') from date_dm where trunc(trunc(sysdate,'MONTH') -1, 'MONTH')
+between calendar_month_start_date and calendar_month_end_date
+
+41.Prev_month_end_date: select distinct to_char(calendar_month_end_date,'MM/DD/YYYY')  from date_dm where trunc(trunc(sysdate,'MONTH') -1, 'MONTH')
+between calendar_month_start_date and calendar_month_end_date
+
+42.GetStartDate-3Mths: select distinct to_char(calendar_month_start_date,'MM/DD/YYYY') from date_dm where trunc(day) = trunc(sysdate - 90)
+
+43. Prev_month: select distinct  calendar_month_name
+from date_dm where trunc(trunc(sysdate,'MONTH') -1, 'MONTH')
+between calendar_month_start_date and calendar_month_end_date
+
+44. SystemDate-28: select distinct trunc(min_day) from date_dm_v where trunc(day) = trunc(sysdate-21)
+
+45.SystemDate-90: select distinct trunc(calendar_month_start_date) from date_dm where trunc(day) = trunc(sysdate-60)
+
+46.SystemDate-4Qtr: select distinct trunc(calendar_quarter_start_date) from date_dm where trunc(day) = trunc(sysdate-270)
+
+47.SystemDate-YTD: select distinct trunc(calendar_year_start_date) from date_dm where trunc(sysdate) between calendar_year_start_date and calendar_year_end_date
+
+48.Sysdate-3years: select distinct trunc(calendar_year_start_date) from date_dm where trunc(day) = trunc(sysdate-700)
+
+49. Start_Week_Period: select distinct week_desc from date_dm_v where day = trunc(sysdate-35)
+
+50. End_Week_Period: select distinct week_desc from date_dm_v where day = trunc(sysdate)
+
+51. Prev_3Month_Start_Date: select distinct  to_char(calendar_month_start_date,'MM/DD/YYYY') from date_dm where trunc(add_months(TRUNC(sysdate,'MONTH'),-3), 'MONTH')
+between calendar_month_start_date and calendar_month_end_date
+
+52. GetLoadDate: select distinct to_char(day,'MM/DD/YYYY') from date_dm where trunc(day) = (select trunc(max (ext_end_date)) 
+from dwh_runs where status = 'Completed' and (last_run_flag = 'N' or last_run_flag = 'Y'));
+
+53.Current_Year: select distinct calendar_year_name from date_dm where trunc(day) = trunc(sysdate)
